@@ -84,7 +84,6 @@ setClock();
 const modal = document.querySelector(".modal");
 const btns = document.querySelectorAll(".btn");
 const modalClose = document.querySelector(".modal__close");
-const modalContent = document.querySelector(".modal__content");
 
 btns.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -96,19 +95,15 @@ modalClose.addEventListener("click", () => {
   modal.style.display = "none";
 });
 
-// modal.addEventListener("click", (el) => {
-//   let target = el.target;
+document.addEventListener("keydown", (event) => {
+  if (event.code == "Escape") {
+    modal.style.display = "none";
+  }
+});
 
-//   if (target == modalContent) {
-//     console.log("Не закрывать");
-//     console.log(target);
-//   } else {
-//     console.log("Закрыть");
-//   }
-// });
-
-modal.addEventListener("keypress", (element) => {
-  if (element.key === 'Escape') {
+modal.addEventListener("click", (el) => {
+  let target = el.target;
+  if (!target.closest('.modal__content', 'form')){
     modal.style.display = "none";
   }
 });

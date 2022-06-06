@@ -33,6 +33,7 @@ tabHeaderItems.forEach((items) => {
   });
 });
 
+// Таймер
 function getTimeRemainging(date) {
   let stockEndDate = new Date(date);
   let currentDate = new Date();
@@ -78,3 +79,36 @@ function setClock() {
   updateClock();
 }
 setClock();
+
+// Модальное окно
+const modal = document.querySelector(".modal");
+const btns = document.querySelectorAll(".btn");
+const modalClose = document.querySelector(".modal__close");
+const modalContent = document.querySelector(".modal__content");
+
+btns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    modal.style.display = "block";
+  });
+});
+
+modalClose.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+// modal.addEventListener("click", (el) => {
+//   let target = el.target;
+
+//   if (target == modalContent) {
+//     console.log("Не закрывать");
+//     console.log(target);
+//   } else {
+//     console.log("Закрыть");
+//   }
+// });
+
+modal.addEventListener("keypress", (element) => {
+  if (element.key === 'Escape') {
+    modal.style.display = "none";
+  }
+});

@@ -482,6 +482,8 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
+  row-gap: 50px;
 }
 
 .menu .title {
@@ -536,9 +538,14 @@ a {
   padding: 10px 20px;
 }
 
-.menu__item-price span {
+.menu__item-total span {
   font-size: 24px;
   font-weight: 700;
+}
+
+#menu__item-currency{
+  font-weight: 300;
+  font-size: 16px;
 }
 
 .order {

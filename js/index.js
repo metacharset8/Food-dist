@@ -127,7 +127,6 @@ const openModalTimeout = setTimeout(() => {
 }, 10000);
 
 // Конструктор автомобиля
-
 function Car(brand, model) {
   this.brand = brand;
   this.model = model;
@@ -149,8 +148,8 @@ maxSpeed.call(NewCar, 56);
 maxSpeed.apply(NewCar, [69]);
 
 let value = {
-  context:10
-}
+  context: 10,
+};
 
 function multiplication(num) {
   console.log(num * this.context);
@@ -158,3 +157,82 @@ function multiplication(num) {
 
 let FuncCall = multiplication.bind(value, 5);
 FuncCall();
+
+// Класс для добавления карточек
+class Item {
+  constructor(options, ...other) {
+    this.$container = document.querySelector(".menu .container");
+    this.img = options.img;
+    this.imgAlt = options.imgAlt;
+    this.subtitle = options.subtitle;
+    this.description = options.description;
+    this.price = options.price;
+    this.currency = options.currency;
+  }
+
+  currencyTranslation() {
+    return Math.floor(this.price * 29.85);
+  }
+  AddCard() {
+    const div = document.createElement("div"),
+      img = document.createElement("img"),
+      subtitle = document.createElement("div"),
+      description = document.createElement("div"),
+      divider = document.createElement("div"),
+      ItemPrice = document.createElement("div"),
+      cost = document.createElement("div"),
+      total = document.createElement("div"),
+      totalSpan = document.createElement("span"),
+      ItemCurrency = document.createElement("span");
+
+    div.className = "menu__item";
+    img.src = this.img;
+    img.alt = this.imgAlt;
+    subtitle.className = "menu__item-subtitle";
+    !this.subtitle
+      ? (subtitle.textContent = "Нет данных")
+      : (subtitle.textContent = this.subtitle);
+    description.className = "menu__item-descr";
+    !this.description
+      ? (description.textContent = "Нет данных")
+      : (description.textContent = this.description);
+    divider.className = "menu__item-divider";
+    ItemPrice.className = "menu__item-price";
+    cost.className = "menu__item-cost";
+    cost.textContent = "Цена:";
+    total.className = "menu__item-total";
+    !this.price
+      ? (totalSpan.textContent = 0)
+      : (totalSpan.textContent = this.currencyTranslation());
+    ItemCurrency.id = "menu__item-currency";
+    ItemCurrency.textContent = " " + this.currency + "/день";
+
+    this.$container.append(div);
+    div.append(img, subtitle, description, divider, ItemPrice);
+    ItemPrice.append(cost, total);
+    total.append(totalSpan, ItemCurrency);
+  }
+}
+
+const item1 = new Item({
+  img: "img/tabs/post.jpg",
+  imgAlt: "post",
+  subtitle: 'Меню "Постное"',
+  description:
+    "Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.",
+  price: 14.41,
+  currency: "грн",
+});
+item1.AddCard();
+
+const item2 = new Item({
+  img: "img/tabs/vegy.jpg",
+  imgAlt: "vegy",
+  subtitle: 'Меню "Фитнес"',
+  description:
+    'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
+  price: 20,
+  currency: "грн",
+});
+item2.AddCard();
+item2.AddCard();

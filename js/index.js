@@ -86,10 +86,12 @@ const btns = document.querySelectorAll(".btn");
 const modalClose = document.querySelector(".modal__close");
 
 btns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    modal.style.display = "block";
-    clearInterval(openModalTimeout);
-  });
+  if (!btn.classList.contains("btn_min")) {
+    btn.addEventListener("click", () => {
+      modal.style.display = "block";
+      clearInterval(openModalTimeout);
+    });
+  }
 });
 
 modalClose.addEventListener("click", () => {
@@ -103,7 +105,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 modal.addEventListener("click", (e) => {
-  if (!e.target.classList.contains("modal__content")) {
+  if (!e.target.closest(".modal__content", "form")) {
     modal.style.display = "none";
   }
 });

@@ -13,10 +13,9 @@
 // form1.addEventListener("submit", retrieveFormValue)
 // form2.addEventListener("submit", retrieveFormValue)
 
-
 const values = {
-    name: "Yura",
-    age: 18,
+  name: "Yura",
+  age: 18,
 };
 const request = "php/server.php";
 // const request = "https://jsonplaceholder.typicode.com/users";

@@ -238,3 +238,56 @@ const item2 = new Item({
 });
 item2.AddCard();
 item2.AddCard();
+
+// Задание 7- Слайдер
+
+const offerSlide = document.querySelectorAll(".offer__slide");
+const nextSlideBtn = document.querySelector(".offer__slider-next");
+const prevSlideBtn = document.querySelector(".offer__slider-prev");
+const currentSlide = document.getElementById("current");
+const sliderDots = document.querySelectorAll(".dot");
+
+let offset = 0;
+let slideIndex = 1;
+
+function activeDot(num) {
+  for (dot of sliderDots) {
+    dot.classList.remove("active-dot");
+  }
+  sliderDots[num].classList.add("active-dot");
+}
+
+function nextSlide() {
+  offset = offset + 650;
+  slideIndex++;
+  if (offset > 1950) {
+    slideIndex = 1;
+    offset = 0;
+  }
+
+  offerSlide.forEach((element) => {
+    element.style.left = -offset + "px";
+  });
+
+  currentSlide.innerHTML = "0" + slideIndex;
+  activeDot(slideIndex - 1);
+}
+
+function prevSlide() {
+  offset = offset - 650;
+  slideIndex--;
+  currentSlide.innerHTML = "0" + slideIndex;
+  if (offset < 0) {
+    offset = 1950;
+    slideIndex = 4;
+  }
+  offerSlide.forEach((element) => {
+    element.style.left = -offset + "px";
+  });
+
+  currentSlide.innerHTML = "0" + slideIndex;
+  activeDot(slideIndex - 1);
+}
+
+nextSlideBtn.addEventListener("click", nextSlide);
+prevSlideBtn.addEventListener("click", prevSlide);

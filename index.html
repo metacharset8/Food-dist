@@ -145,12 +145,7 @@
               <img src="img/slider/paprika.jpg" alt="paprika" />
             </div>
           </div>
-          <div class="offer-slider-dots">
-            <div class="dot active-dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-          </div>
+          <div class="offer-slider-dots"></div>
         </div>
       </div>
     </div>
@@ -178,18 +173,21 @@
               id="height"
               placeholder="Введите рост"
               class="calculating__choose-item"
+              onchange="getHeightValue(this.value)"
             />
             <input
               type="text"
               id="weight"
               placeholder="Введите вес"
               class="calculating__choose-item"
+              onchange="getWeightValue(this.value)"
             />
             <input
               type="text"
               id="age"
               placeholder="Введите возраст"
               class="calculating__choose-item"
+              onchange="getAgeValue(this.value)"
             />
           </div>
 
@@ -389,6 +387,6 @@
       </div>
     </div>
     <script src="js/index.js"></script>
-    <script src="js/requests.js"></script>
+    <!-- <script src="js/requests.js"></script> -->
   </body>
 </html>

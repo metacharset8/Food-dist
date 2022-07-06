@@ -387,6 +387,7 @@ a {
   margin-right: 6px;
   cursor: pointer;
   border-radius: 3px;
+  transition: 200ms;
 }
 .active-dot {
   background-color: white;

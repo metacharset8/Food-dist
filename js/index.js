@@ -124,9 +124,9 @@ window.onscroll = function test() {
   }
 };
 
-const openModalTimeout = setTimeout(() => {
-  btn.click();
-}, 10000);
+// const openModalTimeout = setTimeout(() => {
+//   btn.click();
+// }, 10000);
 
 // Конструктор автомобиля
 function Car(brand, model) {
@@ -241,6 +241,7 @@ item2.AddCard();
 
 // Задание 7- Слайдер
 
+const dotsWrapper = document.querySelector(".offer-slider-dots");
 const offerSlide = document.querySelectorAll(".offer__slide");
 const nextSlideBtn = document.querySelector(".offer__slider-next");
 const prevSlideBtn = document.querySelector(".offer__slider-prev");
@@ -250,12 +251,20 @@ const sliderDots = document.querySelectorAll(".dot");
 let offset = 0;
 let slideIndex = 1;
 
-function activeDot(num) {
-  for (dot of sliderDots) {
-    dot.classList.remove("active-dot");
-  }
-  sliderDots[num].classList.add("active-dot");
-}
+// function activeDot(num) {
+//   for (dot of sliderDots) {
+//     dot.classList.remove("active-dot");
+//   }
+//   sliderDots[num].classList.add("active-dot");
+// }
+
+// sliderDots.forEach((dot) => {
+//   dot.addEventListener("click", () => {
+//     if (dot.className != "active-dot") {
+//       dot.classList.add("active-dot");
+//     }
+//   });
+// });
 
 function nextSlide() {
   offset = offset + 650;
@@ -268,9 +277,11 @@ function nextSlide() {
   offerSlide.forEach((element) => {
     element.style.left = -offset + "px";
   });
-
+  dots.forEach((dot) => {
+    dot.classList.remove("active-dot");
+  });
+  dots[slideIndex - 1].classList.add("active-dot");
   currentSlide.innerHTML = "0" + slideIndex;
-  activeDot(slideIndex - 1);
 }
 
 function prevSlide() {
@@ -284,10 +295,67 @@ function prevSlide() {
   offerSlide.forEach((element) => {
     element.style.left = -offset + "px";
   });
-
+  dots.forEach((dot) => {
+    dot.classList.remove("active-dot");
+  });
+  dots[slideIndex - 1].classList.add("active-dot");
   currentSlide.innerHTML = "0" + slideIndex;
-  activeDot(slideIndex - 1);
 }
+
+const changeSlide = () => {
+  offset = 650 * (slideIndex - 1);
+  currentSlide.innerHTML = "0" + slideIndex;
+  offerSlide.forEach((element) => {
+    element.style.left = -offset + "px";
+  });
+  currentSlide.innerHTML = "0" + slideIndex;
+};
+
+offerSlide.forEach((slide, index) => {
+  const dot = document.createElement("div");
+  dot.classList.add("dot");
+  if (index == 0) {
+    dot.classList.add("active-dot");
+  }
+  dot.addEventListener("click", () => {
+    dots.forEach((dot) => {
+      dot.classList.remove("active-dot");
+    });
+    dot.classList.add("active-dot");
+    slideIndex = index + 1;
+    changeSlide();
+  });
+  dotsWrapper.appendChild(dot);
+});
+
+const dots = document.querySelectorAll(".dot");
 
 nextSlideBtn.addEventListener("click", nextSlide);
 prevSlideBtn.addEventListener("click", prevSlide);
+
+// Задание 8 - Калькулятор калорий
+
+// const calcRes = document.querySelector(".calculating__result span");
+
+// function getHeightValue(value) {
+//   let heightValue = value;
+//   return heightValue;
+// }
+// function getWeightValue(value) {
+//   let weightValue = value;
+//   return weightValue;
+// }
+// function getAgeValue(value) {
+//   let ageValue = value;
+//   return ageValue;
+// }
+
+// function output() {
+//   let BmrMen =
+//     88.36 +
+//     13.4 * getHeightValue() +
+//     4.8 * getWeightValue() -
+//     5.7 * getAgeValue();
+//   calcRes.innerHTML = BmrMen;
+// }
+// output();

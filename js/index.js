@@ -335,27 +335,96 @@ prevSlideBtn.addEventListener("click", prevSlide);
 
 // Задание 8 - Калькулятор калорий
 
-// const calcRes = document.querySelector(".calculating__result span");
+const calcRes = document.querySelector(".calculating__result span");
+const calcInputs = document.querySelectorAll(".calculating__choose input");
+const genderItems = document.querySelectorAll(
+  "#gender .calculating__choose-item"
+);
+const activityItems = document.querySelectorAll(
+  ".calculating__choose_big .calculating__choose-item"
+);
 
-// function getHeightValue(value) {
-//   let heightValue = value;
-//   return heightValue;
-// }
-// function getWeightValue(value) {
-//   let weightValue = value;
-//   return weightValue;
-// }
-// function getAgeValue(value) {
-//   let ageValue = value;
-//   return ageValue;
-// }
+let sex = "female";
+let height = "0";
+let weight = "0";
+let age = "0";
+let activity = 1.375;
+calcRes.innerHTML = "____";
 
-// function output() {
-//   let BmrMen =
-//     88.36 +
-//     13.4 * getHeightValue() +
-//     4.8 * getWeightValue() -
-//     5.7 * getAgeValue();
-//   calcRes.innerHTML = BmrMen;
-// }
-// output();
+genderItems.forEach((gender) => {
+  gender.addEventListener("click", () => {
+    if (gender.dataset.sex === "male") {
+      sex = "male";
+    } else {
+      sex = "female";
+    }
+    calculation(height, weight, age, sex, activity);
+    genderItems.forEach((el) =>
+      el.classList.remove("calculating__choose-item_active")
+    );
+    gender.classList.add("calculating__choose-item_active");
+  });
+});
+
+activityItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    if (item.dataset.activity === "low") {
+      activity = 1.2;
+    } else if (item.dataset.activity === "small") {
+      activity = 1.375;
+    } else if (item.dataset.activity === "medium") {
+      activity = 1.55;
+    } else if (item.dataset.activity === "high") {
+      activity = 1.725;
+    }
+    calculation(height, weight, age, sex, activity);
+    activityItems.forEach((el) =>
+      el.classList.remove("calculating__choose-item_active")
+    );
+    item.classList.add("calculating__choose-item_active");
+  });
+});
+
+function calculation(height, weight, age, sex, activity) {
+  if (height >= 1 && weight >= 1 && age >= 1) {
+    if (sex == "female") {
+      BMR =
+        (447.6 +
+          9.2 * Number(weight) +
+          3.1 * Number(height) -
+          4.3 * Number(age)) *
+        activity;
+    } else {
+      BMR =
+        (88.36 +
+          13.4 * Number(weight) +
+          4.8 * Number(height) -
+          5.7 * Number(age)) *
+        activity;
+    }
+    calcRes.innerHTML = BMR.toFixed();
+  }
+}
+
+calcInputs.forEach((input, index) => {
+  input.addEventListener("input", (e) => {
+    let re = /^[0-9]+$/;
+    e.target.style.border = "none";
+    e.target.style.transition = "120ms";
+    if (re.test(e.target.value)) {
+      if (index == 0) {
+        height = calcInputs[0].value;
+      }
+      if (index == 1) {
+        weight = calcInputs[1].value;
+      }
+      if (index == 2) {
+        age = calcInputs[2].value;
+      }
+    } else {
+      e.target.style.border = "2.5px solid red";
+      e.target.style.transition = "120ms";
+    }
+    calculation(height, weight, age, sex, activity);
+  });
+});
